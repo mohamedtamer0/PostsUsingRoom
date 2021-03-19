@@ -7,7 +7,8 @@ import androidx.room.Query;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+
 
 @Dao
 public interface PostsDao {
@@ -15,7 +16,7 @@ public interface PostsDao {
     Completable insertPost(Post post);
 
     @Query("SELECT * FROM posts_table")
-    Observable<List<Post>> getPosts();
+    Single<List<Post>> getPosts();
 
 
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder> {
-    private ArrayList<Post> postList = new ArrayList<Post>();
+    private List<Post> postList = new ArrayList<Post>();
 
     @NonNull
     @Override
@@ -32,7 +32,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         return postList.size();
     }
 
-    public void setList(ArrayList<Post> OJGName) {
+    public void setList(List<Post> OJGName) {
         this.postList = OJGName;
         notifyDataSetChanged();
     }
