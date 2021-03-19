@@ -1,5 +1,6 @@
 package com.example.postsusingroom;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,12 +11,11 @@ import android.widget.EditText;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.CompletableObserver;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
         PostsAdapter adapter = new PostsAdapter();
         postsRecyclerView.setAdapter(adapter);
 
-       final PostsDatabase postsDatabase = PostsDatabase.getInstance(this);
+        final PostsDatabase postsDatabase = PostsDatabase.getInstance(this);
 
 
         insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                postsDatabase.postsDao().insertPost(new Post(2, "Tamer", "Hello World"))
+            public void onClick(View view) {
+                postsDatabase.postsDao().insertPost(new Post(2, titleEt.getEditableText().toString(), bodyEt.getEditableText().toString()))
                         .subscribeOn(Schedulers.computation())
                         .subscribe(new CompletableObserver() {
                             @Override
-                            public void onSubscribe(@NonNull Disposable d) {
+                            public void onSubscribe(Disposable d) {
 
                             }
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onError(@NonNull Throwable e) {
+                            public void onError(Throwable e) {
 
                             }
                         });
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         getBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 postsDatabase.postsDao().getPosts()
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -89,12 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
-
             }
         });
-
-
-
 
     }
 
