@@ -6,13 +6,16 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
+
 @Dao
 public interface PostsDao {
     @Insert
-    void insertPost(Post post);
+    Completable insertPost(Post post);
 
     @Query("SELECT * FROM posts_table")
-    List<Post> getPosts();
+    Observable<List<Post>> getPosts();
 
 
 }
